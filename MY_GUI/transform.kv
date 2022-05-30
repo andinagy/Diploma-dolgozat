@@ -1,0 +1,176 @@
+#: import Factory kivy.factory.Factory
+
+<MyPopup@Popup>
+    auto_dismiss:False
+    title:"Spektrogram"
+    size_hint:0.8,0.8
+    pos_hint:{"x": 0.1,"top":0.9, "left":0.5}
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        Image:
+            source: 'spectrum.png'
+            allow_stretch: True
+            keep_ratio:True
+        Button:
+            text:"vissza"
+            font_size:15
+            size_hint:0.1,0.1
+            on_release: root.dismiss()
+
+<CheckBox>
+    size_hint:.1,.1
+    background_normal:''
+    background_color: (101/255.0,101/255.0,52/255.0,0.5)
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            size: self.size
+            pos:self.pos
+
+<MyLayout>
+    id:my_widget
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        padding:20
+        spacing:20
+
+        BoxLayout:
+            orientation: "horizontal"
+            size: root.width, root.height
+            padding:20
+            spacing:20
+            BoxLayout:
+                orientation: "vertical"
+                size: root.width, root.height
+                size_hint:0.7,0.9
+                pos_hint:{"x":0.1,"left":0.9,"top":0.85}
+                GridLayout:
+                    rows:2
+                    size: root.width, root.height
+                    size_hint:.6,.7
+                    pos_hint:{"x":0.1,"left":0.9,"top":0.85}
+                    Label:
+                        text:"Válassz egy transzformációt"
+                        font_size: 15
+                        size_hint:.1,.1
+                        pos_hint:{"x": 0,"top":0.3, "left":0.1}
+                        background_normal:''
+                        background_color: (0,0,1,0)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos:self.pos
+
+                    GridLayout:
+                        cols:2
+                        size_hint:.35,.35
+                        pos_hint:{"x": 0,"top":0.3, "left":0.1}
+
+                        Label:
+                            id:FFT
+                            text:"FFT"
+                            font_size: 15
+                            size_hint:.1,.1
+                            background_normal:''
+                            background_color: (101/255.0,101/255.0,52/255.0,0.5)
+                            canvas.before:
+                                Color:
+                                    rgba: self.background_color
+                                Rectangle:
+                                    size: self.size
+                                    pos:self.pos
+
+                        CheckBox:
+                            group: "transzformaciok"
+                            on_active: root.radiobox_click(self,self.active,"FFT")
+
+                        Label:
+                            id:Haar
+                            text:"Haar"
+                            font_size: 15
+                            size_hint:.1,.1
+                            background_normal:''
+                            background_color: (101/255.0,101/255.0,52/255.0,0.5)
+                            canvas.before:
+                                Color:
+                                    rgba: self.background_color
+                                Rectangle:
+                                    size: self.size
+                                    pos:self.pos
+
+                        CheckBox:
+                            group: "transzformaciok"
+                            on_active: root.radiobox_click(self,self.active,"Haar")
+
+                        Label:
+                            id: Morlet
+                            text:"Morlet"
+                            font_size: 15
+                            size_hint:.1,.1
+                            background_normal:''
+                            background_color: (101/255.0,101/255.0,52/255.0,0.5)
+                            canvas.before:
+                                Color:
+                                    rgba: self.background_color
+                                Rectangle:
+                                    size: self.size
+                                    pos:self.pos
+
+                        CheckBox:
+                            group: "transzformaciok"
+                            on_active: root.radiobox_click(self,self.active,"Morlet")
+                Label:
+                    id:output_label
+                    text: ""
+                    size_hint:.4,.4
+                    pos_hint:{"x": 0.1, "right":0.5}
+
+            BoxLayout:
+                orientation: "vertical"
+                size: root.width, root.height
+                size_hint:0.7,0.9
+                padding:30
+                spacing:15
+                pos_hint:{"x":0.1,"right":0.9,"top":0.9}
+                Label:
+                    text: "Válassz ki egy csv állományt"
+                    size_hint:0.2,0.2
+                    pos_hint:{"x": 0.1, "right":0.5}
+                FileChooserListView:
+                    id:filechooser
+                    pos_hint:{"x":0.1,"right":0.9,"top":0.9}
+
+                    on_selection:
+                        my_widget.selected(filechooser.selection)
+                BoxLayout:
+                    orientation: "vertical"
+                    size: root.width, root.height
+                    padding:20
+                    spacing:20
+                    size_hint:0.7,0.5
+                    pos_hint:{"x":0.1,"right":0.75, "top":0.7}
+
+                    Button:
+                        text:"Spektrum generálás"
+                        font_size:15
+                        size_hint:0.85,0.1
+
+                        pos_hint:{"x":0.1, "right":0.8}
+                        on_release: my_widget.plot_spectrum()
+
+                    Button:
+                        text:"Spektrum kirajzolas"
+                        font_size:15
+                        size_hint:0.85,0.1
+
+                        pos_hint:{"x":0.1, "right":0.8}
+                        on_release:Factory.MyPopup().open()
+

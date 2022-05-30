@@ -1,0 +1,30 @@
+
+    def __init__(self, **kwargs):
+        #construcor
+        super(MyGridLayout,self).__init__(**kwargs)
+
+        #columns
+        self.cols = 1
+
+        #second gridlayout
+        self.top_grid = GridLayout()
+        self.top_grid.cols = 2
+
+        #widget
+        self.top_grid.add_widget(Label(text = "Name: "))
+
+        self.add_widget(self.top_grid)
+        self.name = TextInput(multiline = False)
+        self.top_grid.add_widget(self.name)
+
+        self.button = Button(text = "First Button")
+        self.button.bind(on_press = self.press)
+        self.add_widget(self.button)
+
+    name = ObjectProperty(None)
+
+    def press(self):
+        name = self.name.text
+        #self.add_widget(Label(text=f"Name: {name} "))
+
+        self.name.text = ""

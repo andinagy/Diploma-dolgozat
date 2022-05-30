@@ -1,0 +1,22 @@
+#: import utils kivy.utils
+<MyGridLayout>
+    name:name
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
+        GridLayout:
+            cols: 2
+
+            Label:
+                text: "Name"
+            TextInput:
+                id: name
+                multilines: False
+
+        Button:
+            text: "Something"
+            font_size: 32
+            on_press: root.press
+            background_normal: ''
+            #background_color: (93/255.0,75/255.0,123/255.0,1)
+            background_color: utils.get_color_from_hex('#5D4B7B')

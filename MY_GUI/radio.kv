@@ -1,0 +1,39 @@
+<MyLayout>
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        Label:
+            text:"Valassz egy transzformaciot"
+            font_size: 20
+
+        GridLayout:
+            cols:2
+
+            Label:
+                text:"FFT"
+                font_size: 15
+
+            CheckBox:
+                group: "transzformaciok"
+                on_active: root.radiobox_click(self,self.active,"FFT")
+
+            Label:
+                text:"Haar"
+                font_size: 15
+
+            CheckBox:
+                group: "transzformaciok"
+                on_active: root.radiobox_click(self,self.active,"Haar")
+
+            Label:
+                text:"Morlet"
+                font_size: 15
+
+            CheckBox:
+                group: "transzformaciok"
+                on_active: root.radiobox_click(self,self.active,"Morlet")
+        Label:
+            id:output_label
+            text: ""
+

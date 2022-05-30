@@ -1,0 +1,36 @@
+#: import Factory kivy.factory.Factory
+
+<MyPopup@Popup>
+    auto_dismiss:False
+    title:"Choose"
+    size_hint:0.9,0.9
+    pos_hint:{"x": 0.1,"top":0.9}
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        Image:
+            source: 'spectrum.png'
+            allow_stretch: True
+            keep_ratio:True
+
+        Button:
+            text:"vissza"
+            font_size:15
+            size_hint:0.1,0.1
+            on_release: root.dismiss()
+
+
+<MyLayout>
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        Label:
+            text:"popup"
+            font_size:32
+        Button:
+            text:"button popup"
+            font_size:32
+            on_release:Factory.MyPopup().open()

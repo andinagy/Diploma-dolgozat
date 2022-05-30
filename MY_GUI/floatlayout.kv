@@ -1,0 +1,15 @@
+<Button>
+    #minden gomb ugyanazt orokli
+    font_size: 32
+    size_hint: (.3,.3)
+
+<MyBoxLayout>
+    FloatLayout:
+
+        size: root.width, root.height
+
+        Button:
+            text: "Submit"
+            pos_hint:{"x":0.7, "right":1}
+        Button:
+            text: "Clear"
